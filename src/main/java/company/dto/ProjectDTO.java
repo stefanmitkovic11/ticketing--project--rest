@@ -1,5 +1,7 @@
 package company.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import company.enums.Status;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +23,9 @@ public class ProjectDTO {
     private String projectDetail;
     private Status projectStatus;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private int completeTaskCounts;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private int unfinishedTaskCounts;
 
 }
