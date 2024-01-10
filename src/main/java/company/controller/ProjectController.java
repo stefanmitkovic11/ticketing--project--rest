@@ -3,10 +3,7 @@ package company.controller;
 import company.dto.ProjectDTO;
 import company.dto.UserDTO;
 import company.entity.ResponseWrapper;
-import company.entity.User;
-import company.mapper.MapperUtil;
 import company.service.ProjectService;
-import company.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +16,9 @@ import java.util.List;
 public class ProjectController {
 
     private final ProjectService projectService;
-    private final UserService userService;
-    private final MapperUtil mapperUtil;
 
-    public ProjectController(ProjectService projectService, UserService userService, MapperUtil mapperUtil) {
+    public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
-        this.userService = userService;
-        this.mapperUtil = mapperUtil;
     }
 
     @GetMapping
