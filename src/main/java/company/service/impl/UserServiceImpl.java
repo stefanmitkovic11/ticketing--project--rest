@@ -6,6 +6,7 @@ import company.dto.UserDTO;
 import company.entity.User;
 import company.mapper.UserMapper;
 import company.repository.UserRepository;
+import company.service.KeycloakService;
 import company.service.ProjectService;
 import company.service.TaskService;
 import company.service.UserService;
@@ -22,12 +23,14 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final ProjectService projectService;
     private final TaskService taskService;
+    private final KeycloakService keycloakService;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, ProjectService projectService, TaskService taskService) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, ProjectService projectService, TaskService taskService, KeycloakService keycloakService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.projectService = projectService;
         this.taskService = taskService;
+        this.keycloakService = keycloakService;
     }
 
     @Override
@@ -53,6 +56,8 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(obj);
 
+        keycloakService.userCreate(dto);
+
     }
 
     @Override
@@ -73,6 +78,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteByUserName(String username) {
         userRepository.deleteByUserName(username);
+
+//        keycloakService.delete(username);
 
     }
 
