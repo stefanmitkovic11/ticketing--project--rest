@@ -1,7 +1,9 @@
 package company.controller;
 
+import company.annotation.DefaultExceptionMessage;
 import company.dto.UserDTO;
 import company.entity.ResponseWrapper;
+import company.exception.TicketingProjectException;
 import company.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -64,8 +66,9 @@ public class UserController {
     @DeleteMapping("/{username}")
     @RolesAllowed({"Admin"})
     @Operation(summary = "DELETE User")
-    public ResponseEntity<ResponseWrapper> deleteUser(@PathVariable("username") String username) {
-        userService.deleteByUserName(username);
+    @DefaultExceptionMessage(defaultMessage = "Failed to delete user")
+    public ResponseEntity<ResponseWrapper> deleteUser(@PathVariable("username") String username) throws TicketingProjectException {
+        userService.delete(username);
 
         return ResponseEntity.ok(new ResponseWrapper("User is successfully deleted", HttpStatus.OK));
     }
